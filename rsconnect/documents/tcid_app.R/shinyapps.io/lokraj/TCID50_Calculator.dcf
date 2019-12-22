@@ -1,0 +1,12 @@
+name: TCID50_Calculator
+title: TCID50_Calculator
+username:
+account: lokraj
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1615626
+bundleId: 2686056
+url: https://lokraj.shinyapps.io/TCID50_Calculator/
+when: 1576995130.39924
+asMultiple: FALSE
+asStatic: FALSE

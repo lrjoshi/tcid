@@ -1,6 +1,7 @@
 library(shiny)
 library(rhandsontable)
 library(shinyWidgets)
+library (flexdashboard)
 
 #function to calculate tcid50
 #this function takes a table format
@@ -33,17 +34,17 @@ ui <- fluidPage(
   br(),
   
   fluidRow(
-    column(10,offset=4,
+    column(4,offset=4,
            numericInput("inoculum","Amount of inoculum added per well (mL)",min=0,max=10,value=0.1))
   ),
 
   fluidRow(
-    column(10,offset=4,
+    column(4,offset=4,
            numericInput("dilution","How many wells used per dilution",value=4))     
   ),  
   
   fluidRow(
-    column(10,offset=4,
+    column(4,offset=4,
            numericInput("logdilution","Log fold dilution (Log10=1)",value=1))      
   ),   
   
@@ -63,15 +64,23 @@ ui <- fluidPage(
   br(),
   
   fluidRow(
-    column(10,offset=4,
+    column(10,offset=5,
            actionButton("recalc", "Reset"))              
   ) ,
- 
- 
  br(),
+ br(),
+
+ 
+ fluidRow(
+   column(5,offset=2,
+          gaugeOutput("gauge"))            
+ ) , 
+ 
+ 
+
  br(),
  fluidRow(
-   column(10,offset=4,
+   column(10,offset=5,
           textOutput("message"))            
  ) 
  
@@ -83,7 +92,7 @@ server <- function(input,output,session)({
   values <- reactiveValues(data=data.frame("Dilution"=c("Undiluted","-1","-2","-3","-4",
                                                         "-5","-6","-7","-8",
                                                         "-9","-10"),
-                                           "Wells"=c(4,4,4,4,4,0,0,0,0,0,0)))
+                                           "Wells"=c(4,4,4,0,0,0,0,0,0,0,0)))
   
   
   observe({
@@ -91,7 +100,7 @@ server <- function(input,output,session)({
     values$data <- data.frame("Dilution"=c("Undiluted","-1","-2","-3","-4",
                                            "-5","-6","-7","-8",
                                            "-9","-10"),
-                              "Wells"=c(4,4,4,4,4,0,0,0,0,0,0))
+                              "Wells"=c(4,4,4,0,0,0,0,0,0,0,0))
   })
   
   observe({
@@ -116,8 +125,24 @@ server <- function(input,output,session)({
     inoculum=input$inoculum
     dilution=input$dilution
     logdilution=input$logdilution
-   paste("Titer (log10 TCID50/mL) : ", tcid50(values$data,inoculum,dilution,logdilution))
-  })
+   paste("Titer (log10 TCID50/mL) : ", round(tcid50(values$data,inoculum,dilution,logdilution),digits=2))
+ 
+   })
+  
+  
+  output$gauge <- renderGauge({ 
+    inoculum=input$inoculum
+    dilution=input$dilution
+    logdilution=input$logdilution
+    titer= round(tcid50(values$data,inoculum,dilution,logdilution),digits=2)
+    gauge(titer,
+          min=0,
+          max=12,
+          sectors = gaugeSectors(success = c(0.0, 4), 
+                                 warning = c(5, 7),
+                                 danger = c(8, 12)))
+  }) 
+  
 }) 
 
 shinyApp(ui = ui, server = server)
