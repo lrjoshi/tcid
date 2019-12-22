@@ -5,8 +5,8 @@ account: lokraj
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1615626
-bundleId: 2686056
+bundleId: 2686532
 url: https://lokraj.shinyapps.io/TCID50_Calculator/
-when: 1576995130.39924
+when: 1577028202.96687
 asMultiple: FALSE
 asStatic: FALSE

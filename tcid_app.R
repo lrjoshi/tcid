@@ -24,6 +24,7 @@ tcid50 <- function (table,inoculum,dilution,logdilution){
 did_recalc <- FALSE
 
 ui <- fluidPage(
+  tags$head(includeScript("google-analytics.js")),
   theme = "bootstrap.css",
   setBackgroundColor("ghostwhite"),
   fluidRow(
