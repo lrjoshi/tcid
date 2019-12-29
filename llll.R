@@ -34,7 +34,7 @@ ui <- fluidPage(
   setBackgroundColor("ghostwhite"),
   fluidRow(
     column(8, align="center", offset = 2,
-           span(titlePanel("TCID50 Calculator"),style="color:DarkRed")),
+          span(titlePanel("TCID50 Calculator"),style="color:DarkRed")),
     
     br(),
     br(),
@@ -58,12 +58,12 @@ ui <- fluidPage(
     
     splitLayout(
       #style = "border: 1px solid silver;",
-      cellWidths = 700,
-      cellArgs = list(style = "padding: 2px"),
+      cellWidths = 1000,
+      cellArgs = list(style = "padding: 6px"),
       column(4,offset=8,
              rHandsontableOutput('table')),         
-      
-      column(4,offset=4,
+   
+      column(4,offset=0,
              gaugeOutput("gauge"))         
     ) , 
     
@@ -72,7 +72,7 @@ ui <- fluidPage(
     
     fluidRow(
       column(10,offset=4,
-             span(textOutput('result'),style="color:DarkBlue"))          
+           span(textOutput('result'),style="color:DarkBlue"))          
     ),
     
     br(),
@@ -82,19 +82,19 @@ ui <- fluidPage(
              actionButton("recalc", "Reset"))              
     ) ,
     
-    
+
     br(),
     fluidRow(
       column(10,offset=1,
              span( textOutput("usage"),style="color:grey")),  
-      fluidRow(
-        column(10,offset=5,
-               span( uiOutput("tab"),style="color:blue"))
+        fluidRow(
+          column(10,offset=5,
+                 span( uiOutput("tab"),style="color:blue"))
+        )
       )
-    )
-  )  
-  
-)
+    )  
+    
+  )
 
 server <- function(input,output,session)({
   
@@ -132,13 +132,13 @@ server <- function(input,output,session)({
   
   output$usage <- renderText ({
     
-    paste( "Example: Suppose you made 10 fold dilution of your inoculum,added 100 ul per well and \n
+ paste( "Example: Suppose you made 10 fold dilution of your inoculum,added 100 ul per well and \n
   you used four wells per dilution. If there were four out of four wells positive \n
   in minus one, minus two ond minus three dilution, and only one out of four wells \n
   positive in minus -3 dilution, then the titer of your stock would be 3.75 TCID50/mL.\n
   Usually, for undiluted inoculum all the four wells can be considered positive.Based on Spearmann-Karber Method.
   Translated from D Gerstner. Developed by Lok Raj Joshi.")
-    
+  
   })
   
   
