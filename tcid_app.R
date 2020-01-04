@@ -40,17 +40,17 @@ ui <- fluidPage(
     br(),
     
     fluidRow(
-      column(4,offset=4,
+      column(4,offset=3,
              numericInput("inoculum","Amount of inoculum added per well (mL)",min=0,max=10,value=0.1))
     ),
     
     fluidRow(
-      column(4,offset=4,
+      column(4,offset=3,
              numericInput("dilution","How many wells used per dilution",value=4))     
     ),  
     
     fluidRow(
-      column(4,offset=4,
+      column(4,offset=3,
              numericInput("logdilution","Log fold dilution (Log10=1)",value=1))      
     ),   
     
@@ -71,14 +71,14 @@ ui <- fluidPage(
     br(),
     
     fluidRow(
-      column(10,offset=4,
+      column(10,offset=3,
              span(textOutput('result'),style="color:DarkBlue"))          
     ),
     
     br(),
     
     fluidRow(
-      column(10,offset=5,
+      column(10,offset=3,
              actionButton("recalc", "Reset"))              
     ) ,
     
